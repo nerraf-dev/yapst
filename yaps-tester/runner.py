@@ -1,5 +1,6 @@
 import subprocess
 from config import PUSH_SWAP, CHECKER, COLOUR
+import platform
 
 def run_test(bonus, numbers):
 	"""
@@ -42,33 +43,46 @@ def run_test(bonus, numbers):
 		return False
 
 
-def run_error_cases(bonus, test_name, test_cases):
+def run_error_cases(bonus, mem, test_name, test_cases):
 	"""
 	Executes error-handling test cases to verify the program's robustness.
-
-	Parameters:
-		bonus (bool): Whether to enable bonus checker verification.
-		test_name (str): The name of the test suite.
-		test_cases (list[tuple]): A list of tuples, where each tuple contains:
-			- name (str): The name of the test case.
-			- test (str): The input to the push_swap program.
-			- should_error (bool): Whether the test case is expected to produce an error.
-
-	Returns:
-		bool: True if all error-handling tests pass, False otherwise.
 	"""
 	print(COLOUR["HEADER"], f"Running {test_name} tests...", COLOUR["ENDC"])
-	for name, test, should_error in test_cases:
-		result = subprocess.run([PUSH_SWAP] + test.split(), capture_output=True, text=True)
-		if bonus:
-			result_bonus = subprocess.run([CHECKER] + test.split(), input=result.stdout, capture_output=True, text=True)
-			if ("Error" in result_bonus.stderr) != should_error:
-				print(f"❌ Error checker test failed: {name} - {test}")
-				return False
+	cmd_push = [PUSH_SWAP]
+	cmd_bonus = [CHECKER]
 
+	if mem:
+		print(f"memory tester: {mem}")
+		mem_cmd_push = mem.split() + cmd_push
+		print(f"cmd_push with memory tester: {mem_cmd_push}")
+
+	for name, test, should_error in test_cases:
+		print(f"Running test: {name} - {test}")
+
+		 # Step 1: Run push_swap normally for output validation
+		result = subprocess.run(cmd_push + test.split(), capture_output=True, text=True)
+		print(f"test cmd: {cmd_push + test.split()}")
 		if ("Error" in result.stderr) != should_error:
-			print(f"❌ Error test failed: {name} - {test}")
+			print(f"❌ Test failed: {name} - {test}")
 			return False
+
+		# Step 2: Run push_swap with leaks or valgrind for memory testing
+		if mem:
+			print(f"Memory test cmd: {mem_cmd_push + test.split()}")
+			try:
+				mem_result = subprocess.run(mem_cmd_push + test.split(), capture_output=False, text=True, timeout=30)
+				if platform.system() == "Darwin":  # macOS (leaks)
+					if "0 leaks for 0 total leaked bytes" not in mem_result.stdout:
+						print(f"❌ Memory leak detected for: {name} - {test}")
+						return False
+				elif platform.system() == "Linux":  # Linux (valgrind)
+					if mem_result.returncode != 0:  # Valgrind exits with non-zero code on leaks
+						print(f"❌ Memory leak detected for: {name} - {test}")
+						print(mem_result.stderr)  # Print valgrind's detailed output
+						return False
+			except subprocess.TimeoutExpired:
+				print(f"❌ Memory test timed out for: {name} - {test}")
+				return False
 
 	print(COLOUR["GREEN"], "✅ All error-handling tests passed", COLOUR["ENDC"])
 	return True

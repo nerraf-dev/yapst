@@ -2,8 +2,12 @@ import random
 
 random.seed(42)
 
+NO_ARGUMENT = [
+	("Empty input", ""),
+]
+
 ERROR_HANDLING = [
-    ("Empty input", "", False),           # empty Expect no error: returns to prompt
+	("No Arguments", "", False),      # no args Expect error
     ("Non-integer input", "1 2 two", True),    # non-int Expect error
     ("Alphabetic input", "a b c", True),      # non-int Expect error
     ("Special character input", "1 2 #", True),      # non-int Expect error
