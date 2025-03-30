@@ -4,6 +4,14 @@ from config import PUSH_SWAP, CHECKER, COLOUR
 def run_test(bonus, numbers):
 	"""
 	Executes a test for the push_swap program using the provided list of numbers.
+
+	Parameters:
+		bonus (bool): Whether to enable bonus checker verification.
+		numbers (list[int]): A list of integers to be sorted by the push_swap program.
+
+	Returns:
+		int: The number of operations performed by the push_swap program if successful.
+		bool: False if the test fails or the program crashes.
 	"""
 	args = [str(n) for n in numbers]
 	cmd_push = [PUSH_SWAP] + args
@@ -37,6 +45,17 @@ def run_test(bonus, numbers):
 def run_error_cases(bonus, test_name, test_cases):
 	"""
 	Executes error-handling test cases to verify the program's robustness.
+
+	Parameters:
+		bonus (bool): Whether to enable bonus checker verification.
+		test_name (str): The name of the test suite.
+		test_cases (list[tuple]): A list of tuples, where each tuple contains:
+			- name (str): The name of the test case.
+			- test (str): The input to the push_swap program.
+			- should_error (bool): Whether the test case is expected to produce an error.
+
+	Returns:
+		bool: True if all error-handling tests pass, False otherwise.
 	"""
 	print(COLOUR["HEADER"], f"Running {test_name} tests...", COLOUR["ENDC"])
 	for name, test, should_error in test_cases:
@@ -58,6 +77,16 @@ def run_error_cases(bonus, test_name, test_cases):
 def run_test_cases(bonus, test_name, test_cases):
 	"""
 	Executes a series of regular test cases and calculates statistics.
+
+	Parameters:
+		bonus (bool): Whether to enable bonus checker verification.
+		test_name (str): The name of the test suite.
+		test_cases (list[tuple]): A list of tuples, where each tuple contains:
+			- name (str): The name of the test case.
+			- test (str | list[int]): The input to the push_swap program, either as a string or a list of integers.
+
+	Returns:
+		float: The average number of operations across all successful tests, or 0 if no tests succeed.
 	"""
 	count = 0
 	op_total = 0
