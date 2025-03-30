@@ -49,7 +49,11 @@ The tool checks for the presence of the `push_swap`, `checker_OS`, and optional 
    ```bash
    git clone https://github.com/nerraf-dev/yapst.git
    ```
-2. Ensure the push_swap and checker executables are in the same directory as test_push_swap.sh:
+1. Copy `test_push_swap.sh` into your `push_swap` project directory:
+   ```bash
+   cp -r yapst/test_push_swap.sh .
+   ```
+1. Ensure the push_swap and checker executables are in the same directory as test_push_swap.sh:
    ```
    push_swap
    ├── Makefile
@@ -62,11 +66,11 @@ The tool checks for the presence of the `push_swap`, `checker_OS`, and optional 
    └── tester
        └── tester .py files
    ```
-3. Make the script executable:
+1. Make the script executable:
    ```bash
    chmod +x test_push_swap.sh
    ```
-4. Run the script:
+1. Run the script:
    ```bash
    ./test_push_swap.sh
    ```

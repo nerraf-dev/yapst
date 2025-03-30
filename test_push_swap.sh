@@ -7,4 +7,4 @@ if [ ! -d "tester" ]; then
 fi
 
 # Run the Python tester
-python3 tester/test_push_swap.py
+python3 yapst/yaps-tester/test_push_swap.py
