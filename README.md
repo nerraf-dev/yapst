@@ -56,7 +56,7 @@ The tool checks for the presence of the `push_swap`, `checker_OS`, and optional 
    ├── push_swap
    ├── checker
    ├── checker_OS
-   ├── [test_push_swap.sh](http://_vscodecontentref_/0)
+   ├── test_push_swap.sh
    ├── src
    │   └── push_swap .c files
    └── tester
