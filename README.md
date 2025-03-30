@@ -47,7 +47,7 @@ The tool checks for the presence of the `push_swap`, `checker_OS`, and optional 
 
 1. Clone this repository into your `push_swap` project directory:
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/nerraf-dev/yapst.git
    ```
 2. Ensure the push_swap and checker executables are in the same directory as test_push_swap.sh:
    ```
