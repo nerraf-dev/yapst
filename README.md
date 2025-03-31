@@ -1,4 +1,4 @@
-# YAPST
+# YAPSTester
 
 **Yet Another Push Swap Tester** is a tester for the Push Swap project. This tool automates the testing of your `push_swap` program by running a variety of test cases, including error handling, edge cases, and performance benchmarks. It also verifies the correctness of the output using the provided `checker` binaries.
 
