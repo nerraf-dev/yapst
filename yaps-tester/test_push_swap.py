@@ -64,8 +64,7 @@ def main():
 	try:
 		check_push_swap()
 		check_checker()
-		# mem = set_mem_tester()
-		mem =  ""
+		mem = set_mem_tester()
 		bonus = check_bonus()
 	except Exception as e:
 		print_error_exit(e)

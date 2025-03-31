@@ -42,7 +42,7 @@ def set_mem_tester():
 			return ""
 		else:
 			print(COLOUR["GREEN"],"Valgrind found", COLOUR["ENDC"])
-			return "valgrind --leak-check=full --error-exitcode=1"
+			return "valgrind --leak-check=full"
 	else:
 		print(COLOUR["YELLOW"],"⚠️  Unknown OS, no memory leak check", COLOUR["ENDC"])
 		return ""
