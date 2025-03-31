@@ -24,7 +24,7 @@ def run_test(bonus, numbers):
 		ops = result.stdout.splitlines()
 		op_count = len(ops)
 
-		# print(f"Running command: {cmd_push}")
+		# print(f"Test: {numbers} Running command: {cmd_push} with {op_count} operations")
 		# print(f"Output: {result.stdout}")
 		# print(f"Error: {result.stderr}")
 		# print(f"Return code: {result.returncode}")
